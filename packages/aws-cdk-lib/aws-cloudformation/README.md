@@ -221,8 +221,8 @@ are added to the specified organizational units. By default the Stack is retaine
 that are removed from them. Use `autoDeployment` to delete the Stack from removed accounts
 instead, or to turn automatic deployments off with `StackSetAutoDeployment.disabled()`.
 
-By default a service managed StackSet is created from a delegated administrator account. Set
-`callAs` to `StackSetCallAs.SELF` if you deploy it from the AWS Organizations management
+By default a service managed StackSet is created from the AWS Organizations management account.
+Set `callAs` to `StackSetCallAs.DELEGATED_ADMIN` if you deploy it from a delegated administrator
 account instead.
 
 ```ts
@@ -237,7 +237,7 @@ new StackSet(stack, 'StackSet', {
   }),
   deploymentType: DeploymentType.serviceManaged({
     autoDeployment: StackSetAutoDeployment.enabled({ retainStacksOnAccountRemoval: false }),
-    callAs: StackSetCallAs.SELF,
+    callAs: StackSetCallAs.DELEGATED_ADMIN,
   }),
   template: StackSetTemplate.fromStackSetStack(stackSetStack),
 });

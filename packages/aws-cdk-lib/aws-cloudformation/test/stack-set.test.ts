@@ -225,7 +225,7 @@ test('service managed stackset', () => {
   Template.fromStack(stack).hasResourceProperties('AWS::CloudFormation::StackSet', {
     ManagedExecution: { Active: true },
     PermissionModel: 'SERVICE_MANAGED',
-    CallAs: 'DELEGATED_ADMIN',
+    CallAs: 'SELF',
     AutoDeployment: {
       Enabled: true,
       RetainStacksOnAccountRemoval: true,
@@ -322,7 +322,7 @@ describe('service managed stackset auto-deployment', () => {
 
 describe('service managed stackset call-as', () => {
   test.each([
-    ['is not set', undefined, 'DELEGATED_ADMIN'],
+    ['is not set', undefined, 'SELF'],
     ['is DELEGATED_ADMIN', StackSetCallAs.DELEGATED_ADMIN, 'DELEGATED_ADMIN'],
     ['is SELF', StackSetCallAs.SELF, 'SELF'],
     ['is a custom value', StackSetCallAs.of('SELF'), 'SELF'],

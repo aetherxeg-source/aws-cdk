@@ -385,13 +385,13 @@ export class StackSetAutoDeployment {
 export class StackSetCallAs {
   /**
    * The StackSet is managed from a delegated administrator account.
-   *
-   * This is the default behavior.
    */
   public static readonly DELEGATED_ADMIN = new StackSetCallAs('DELEGATED_ADMIN');
 
   /**
    * The StackSet is managed from the AWS Organizations management account.
+   *
+   * This is the default behavior.
    */
   public static readonly SELF = new StackSetCallAs('SELF');
 
@@ -430,7 +430,7 @@ export interface ServiceManagedOptions {
    *
    * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html
    *
-   * @default StackSetCallAs.DELEGATED_ADMIN
+   * @default StackSetCallAs.SELF
    */
   readonly callAs?: StackSetCallAs;
 }
@@ -541,7 +541,7 @@ class ServiceManagedDeploymentType extends DeploymentType {
     return {
       permissionsModel: PermissionModel.SERVICE_MANAGED,
       autoDeployment: (this.options?.autoDeployment ?? StackSetAutoDeployment.enabled())._render(),
-      callAs: (this.options?.callAs ?? StackSetCallAs.DELEGATED_ADMIN).value,
+      callAs: (this.options?.callAs ?? StackSetCallAs.SELF).value,
     };
   }
 }
