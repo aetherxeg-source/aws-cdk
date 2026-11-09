@@ -311,7 +311,7 @@ describe('service managed stackset auto-deployment', () => {
         organizationalUnits: ['ou-1111111'],
       }),
       deploymentType: DeploymentType.serviceManaged({ autoDeployment }),
-      template: StackSetTemplate.fromStackSetStack(new StackSetStack(app, 'Stack')),
+      template: StackSetTemplate.fromStackSetStack(new StackSetStack(stack, 'Stack')),
     });
 
     Template.fromStack(stack).hasResourceProperties('AWS::CloudFormation::StackSet', {
@@ -336,7 +336,7 @@ describe('service managed stackset call-as', () => {
         organizationalUnits: ['ou-1111111'],
       }),
       deploymentType: DeploymentType.serviceManaged({ callAs }),
-      template: StackSetTemplate.fromStackSetStack(new StackSetStack(app, 'Stack')),
+      template: StackSetTemplate.fromStackSetStack(new StackSetStack(stack, 'Stack')),
     });
 
     Template.fromStack(stack).hasResourceProperties('AWS::CloudFormation::StackSet', {
@@ -355,7 +355,7 @@ test('self managed stackset renders neither AutoDeployment nor CallAs', () => {
       accounts: ['11111111111'],
     }),
     deploymentType: DeploymentType.selfManaged(),
-    template: StackSetTemplate.fromStackSetStack(new StackSetStack(app, 'Stack')),
+    template: StackSetTemplate.fromStackSetStack(new StackSetStack(stack, 'Stack')),
   });
 
   Template.fromStack(stack).hasResourceProperties('AWS::CloudFormation::StackSet', {
