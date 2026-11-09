@@ -325,7 +325,7 @@ describe('service managed stackset call-as', () => {
     ['is not set', undefined, 'SELF'],
     ['is DELEGATED_ADMIN', StackSetCallAs.DELEGATED_ADMIN, 'DELEGATED_ADMIN'],
     ['is SELF', StackSetCallAs.SELF, 'SELF'],
-    ['is a custom value', StackSetCallAs.of('SELF'), 'SELF'],
+    ['is a custom value', StackSetCallAs.of('CUSTOM_VALUE'), 'CUSTOM_VALUE'],
   ])('renders CallAs when it %s', (_description, callAs, expected) => {
     const app = new App();
     const stack = new Stack(app);
@@ -338,6 +338,7 @@ describe('service managed stackset call-as', () => {
       deploymentType: DeploymentType.serviceManaged({ callAs }),
       template: StackSetTemplate.fromStackSetStack(new StackSetStack(stack, 'Stack')),
     });
+    Validations.of(stack).acknowledge({ id: 'CloudFormation-Validate::W3030', reason: 'of() accepts values newer than the CloudFormation schema' });
 
     Template.fromStack(stack).hasResourceProperties('AWS::CloudFormation::StackSet', {
       CallAs: expected,
